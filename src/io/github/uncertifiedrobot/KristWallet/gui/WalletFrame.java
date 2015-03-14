@@ -1,10 +1,10 @@
-package io.github.apemanzilla.kwallet.gui;
+package io.github.uncertifiedrobot.KristWallet.gui;
 
-import io.github.apemanzilla.kwallet.KWallet;
-import io.github.apemanzilla.kwallet.gui.views.EconomiconPanel;
-import io.github.apemanzilla.kwallet.gui.views.HistoryPanel;
-import io.github.apemanzilla.kwallet.gui.views.OverviewPanel;
-import io.github.apemanzilla.kwallet.gui.views.TransferPanel;
+import io.github.uncertifiedrobot.KristWallet.KWallet;
+import io.github.uncertifiedrobot.KristWallet.gui.views.EconomiconPanel;
+import io.github.uncertifiedrobot.KristWallet.gui.views.HistoryPanel;
+import io.github.uncertifiedrobot.KristWallet.gui.views.OverviewPanel;
+import io.github.uncertifiedrobot.KristWallet.gui.views.TransferPanel;
 
 import java.awt.BorderLayout;
 
@@ -41,8 +41,7 @@ public class WalletFrame extends JFrame {
 	private JButton btnTransactions;
 	private JButton btnSendKrist;
 	private JButton btnEconomicon;
-	private JButton btnTip;
-
+	private JButton btnLogout;
 	/**
 	 * Create the frame.
 	 */
@@ -107,13 +106,17 @@ public class WalletFrame extends JFrame {
 		btnEconomicon.setPreferredSize(new Dimension(0, 25));
 		buttonPanel.add(btnEconomicon);
 		
-		btnTip = new JButton("Tip the creator!");
-		btnTip.addActionListener(new ActionListener() {
+		btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				self.setView(Views.TIP);
+				KWallet.logout();
 			}
 		});
-		buttonPanel.add(btnTip);
+		btnLogout.setFocusPainted(false);
+		btnLogout.setMaximumSize(new Dimension(0, 25));
+		btnLogout.setPreferredSize(new Dimension(0, 25));
+		buttonPanel.add(btnLogout);
+		
 		
 		Component verticalGlue = Box.createVerticalGlue();
 		buttonPanel.add(verticalGlue);
@@ -144,8 +147,7 @@ public class WalletFrame extends JFrame {
 		OVERVIEW,
 		HISTORY,
 		TRANSFER,
-		ECONOMICON,
-		TIP
+		ECONOMICON
 	}
 	
 	public void setView(Views view) {
@@ -160,7 +162,6 @@ public class WalletFrame extends JFrame {
 				btnTransactions.setEnabled(true);
 				btnSendKrist.setEnabled(true);
 				btnEconomicon.setEnabled(true);
-				btnTip.setEnabled(true);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
@@ -179,7 +180,6 @@ public class WalletFrame extends JFrame {
 					btnTransactions.setEnabled(false);
 					btnSendKrist.setEnabled(true);
 					btnEconomicon.setEnabled(true);
-					btnTip.setEnabled(true);
 				} catch (MalformedURLException e) {
 					JOptionPane.showMessageDialog(null, "Could not get transactions","Error",JOptionPane.ERROR_MESSAGE);
 					e.printStackTrace();
@@ -201,7 +201,6 @@ public class WalletFrame extends JFrame {
 				btnTransactions.setEnabled(true);
 				btnSendKrist.setEnabled(false);
 				btnEconomicon.setEnabled(true);
-				btnTip.setEnabled(true);
 				invalidate();
 				validate();
 				repaint();
@@ -216,26 +215,11 @@ public class WalletFrame extends JFrame {
 				btnTransactions.setEnabled(true);
 				btnSendKrist.setEnabled(true);
 				btnEconomicon.setEnabled(false);
-				btnTip.setEnabled(true);
 				invalidate();
 				validate();
 				repaint();
 				break;
 		 }
-		case TIP:
-			viewContainer.removeAll();
-			currentView = new TransferPanel(true);
-			viewContainer.add(currentView);
-			
-			btnOverview.setEnabled(true);
-			btnTransactions.setEnabled(true);
-			btnSendKrist.setEnabled(true);
-			btnEconomicon.setEnabled(true);
-			btnTip.setEnabled(false);
-			invalidate();
-			validate();
-			repaint();
-			break;
 		}
 		
 	}

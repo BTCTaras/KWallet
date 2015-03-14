@@ -1,17 +1,20 @@
-package io.github.apemanzilla.kwallet.gui;
+package io.github.uncertifiedrobot.KristWallet.gui;
 
-import io.github.apemanzilla.kwallet.KWallet;
-import io.github.apemanzilla.kwallet.types.Transaction;
+import io.github.uncertifiedrobot.KristWallet.KWallet;
+import io.github.uncertifiedrobot.KristWallet.types.Transaction;
+
 import java.awt.Dimension;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
+
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

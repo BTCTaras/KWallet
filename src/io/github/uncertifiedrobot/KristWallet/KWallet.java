@@ -1,10 +1,10 @@
-package io.github.apemanzilla.kwallet;
+package io.github.uncertifiedrobot.KristWallet;
 
-import io.github.apemanzilla.kwallet.gui.LoginFrame;
-import io.github.apemanzilla.kwallet.gui.WalletFrame;
-import io.github.apemanzilla.kwallet.gui.WalletFrame.Views;
-import io.github.apemanzilla.kwallet.gui.views.HistoryPanel;
-import io.github.apemanzilla.kwallet.util.HTTP;
+import io.github.uncertifiedrobot.KristWallet.gui.LoginFrame;
+import io.github.uncertifiedrobot.KristWallet.gui.WalletFrame;
+import io.github.uncertifiedrobot.KristWallet.gui.WalletFrame.Views;
+import io.github.uncertifiedrobot.KristWallet.gui.views.HistoryPanel;
+import io.github.uncertifiedrobot.KristWallet.util.HTTP;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -16,12 +16,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-
+/*
+ * Author: UncertifiedRobot
+ * Original Author: apemanzilla
+ * 
+ * License file is supplied with every copy.
+ */
 @SuppressWarnings("unused")
 public class KWallet {
 	
-	private static LoginFrame loginWindow;
-	private static WalletFrame walletWindow;
+	public static LoginFrame loginWindow;
+	public static WalletFrame walletWindow;
 	public static KristAPI api;
 
 	public static void main(String[] args) {
@@ -95,6 +100,21 @@ public class KWallet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	public static void logout(){
+		walletWindow.dispose();
+		try {
+			loginWindow = new LoginFrame();
+			loginWindow.pack();
+			loginWindow.setLocationRelativeTo(null);
+			loginWindow.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 	
 }
