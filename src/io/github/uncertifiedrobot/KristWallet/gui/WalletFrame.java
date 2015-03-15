@@ -52,7 +52,7 @@ public class WalletFrame extends JFrame {
 		
 		
 		File f = new File("kbook.json");
-		if(f.exists() && !f.isDirectory()) { 
+		if(!f.exists() && !f.isDirectory()) { 
 			try {
 				f.createNewFile();
 			} catch (IOException e1) {
