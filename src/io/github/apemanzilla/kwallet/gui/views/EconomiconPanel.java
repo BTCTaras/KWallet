@@ -37,11 +37,11 @@ public class EconomiconPanel extends JPanel {
 		richlistPanel = new JPanel();
 		richlistPanel.setBorder(new EmptyBorder(0, 10, 0, 0));
 		richlistPanel.setLayout(new BorderLayout());
-		tabbedPane.addTab("Top Balances", null, richlistPanel, null);
+		tabbedPane.addTab("Top balances", null, richlistPanel, null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new EmptyBorder(0, 10, 0, 0));
-		//tabbedPane.addTab("New tab", null, panel_1, null);
+		JPanel blockchainPanel = new JPanel();
+		blockchainPanel.setBorder(new EmptyBorder(0, 10, 0, 0));
+		tabbedPane.addTab("Recent blocks", null, blockchainPanel, null);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EmptyBorder(0, 10, 0, 0));
