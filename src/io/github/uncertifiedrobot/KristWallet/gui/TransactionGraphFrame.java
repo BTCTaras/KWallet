@@ -26,10 +26,12 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class TransactionGraphFrame extends JFrame
 {
-  private String address;
+
+	private static final long serialVersionUID = -4552460289416368873L;
+private String address;
   private XYSeries totalSeries;
   private XYSeriesCollection data;
-  private static final long serialVersionUID = 3744316270884669223L;
+
   private JPanel loadingPanel;
   private JProgressBar progressBar;
 

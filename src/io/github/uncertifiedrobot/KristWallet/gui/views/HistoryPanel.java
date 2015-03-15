@@ -29,8 +29,10 @@ import javax.swing.JTextField;
 
 public class HistoryPanel extends JPanel
 {
-  private static final long serialVersionUID = 5110265808807047060L;
-  private String address;
+
+
+	private static final long serialVersionUID = -4139503255079215895L;
+	private String address;
   private JTable historyTable;
   private JScrollPane sp;
   private JLabel lblLoading;

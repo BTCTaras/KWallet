@@ -34,10 +34,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class BookPanel extends JPanel {
-
+	private static final long serialVersionUID = 8580657934407941138L;
 	private JPanel richlistPanel;
-	
-	//private static final long serialVersionUID = 5859711605797009759L;
 
 	public BookPanel() {
 		setBorder(new EmptyBorder(0, 0, 0, 0));

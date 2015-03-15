@@ -36,7 +36,10 @@ import java.awt.event.MouseEvent;
 
 public class OverviewPanel extends JPanel {
 	
-	private static final long serialVersionUID = 3033921426797693589L;
+
+
+
+	private static final long serialVersionUID = 6135805283318817965L;
 	private JTextField address;
 	private JTextField balanceField;
 	private JButton btnCopy;

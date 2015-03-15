@@ -8,7 +8,8 @@ import javax.swing.table.AbstractTableModel;
 
 public class TransactionTableModel extends AbstractTableModel {
 
-	private static final long serialVersionUID = -3523439709848378990L;
+
+	private static final long serialVersionUID = -2893874111517173913L;
 	private String[] columnNames = {
 			"Time",
 			"Address",

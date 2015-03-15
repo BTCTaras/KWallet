@@ -8,7 +8,8 @@ import javax.swing.table.AbstractTableModel;
 
 public class AddressTableModel extends AbstractTableModel {
 
-	private static final long serialVersionUID = -3523439709848378990L;
+
+	private static final long serialVersionUID = -3904924692274989124L;
 	private String[] columnNames = {
 			"#",
 			"Address",

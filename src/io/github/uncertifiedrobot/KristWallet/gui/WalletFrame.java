@@ -25,6 +25,7 @@ import javax.swing.Box;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -34,7 +35,8 @@ import javax.swing.BoxLayout;
 
 public class WalletFrame extends JFrame {
 
-	private static final long serialVersionUID = -4298637799286781394L;
+
+	private static final long serialVersionUID = -1732887385784979108L;
 	private WalletFrame self;
 	private JPanel contentPane;
 	private JPanel viewContainer;
@@ -55,6 +57,10 @@ public class WalletFrame extends JFrame {
 		if(!f.exists() && !f.isDirectory()) { 
 			try {
 				f.createNewFile();
+				FileWriter file = new FileWriter("kbook.json");
+				file.write("{\"data\":[]}");
+				file.flush();
+				file.close();
 			} catch (IOException e1) {
 				JOptionPane.showMessageDialog(null,"Could not create empty address book. This feature will not work correctly.","An error has occured!",JOptionPane.ERROR_MESSAGE);
 			}

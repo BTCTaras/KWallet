@@ -2,6 +2,7 @@ package io.github.uncertifiedrobot.KristWallet.gui.views;
 
 import io.github.uncertifiedrobot.KristWallet.KWallet;
 import io.github.uncertifiedrobot.KristWallet.KristAPI;
+import io.github.uncertifiedrobot.KristWallet.gui.views.OverviewPanel.LoadThread;
 
 import javax.swing.JPanel;
 
@@ -22,6 +23,7 @@ import javax.swing.BoxLayout;
 
 import java.awt.Dimension;
 
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -29,18 +31,27 @@ import javax.swing.JSpinner;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.SpinnerNumberModel;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 public class TransferPanel extends JPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2450538719968834861L;
+
+	private static final long serialVersionUID = 5678365414928804432L;
 	private JTextField recipientField;
 	private JButton btnSend;
 	private JSpinner spinner;
+	private JCheckBox checkbox;
+	private JTextField nickName;
+	private JLabel balLbl;
 	
 	public TransferPanel() {
 		setLayout(new BorderLayout(0, 0));
@@ -53,12 +64,18 @@ public class TransferPanel extends JPanel {
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		header.add(horizontalStrut);
 		
-		
+
 		JLabel lblTransferKrist = new JLabel("Transfer Krist");
 		lblTransferKrist.setFont(new Font("SansSerif", Font.BOLD, 12));
 		header.add(lblTransferKrist);
+
+
 		
 		
+		
+		
+		
+
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
@@ -118,7 +135,32 @@ public class TransferPanel extends JPanel {
 		
 		
 		
+		JLabel lblNick = new JLabel("Label: ");
+		GridBagConstraints gbc_lblNick = new GridBagConstraints();
+		gbc_lblNick.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNick.gridx = 1;
+		gbc_lblNick.gridy = 2;
+		panel.add(lblNick, gbc_lblNick);
 		
+		
+		
+		nickName = new JTextField();
+		nickName.setToolTipText("Enter a nickname for in the address book");
+		GridBagConstraints gbc_nickName = new GridBagConstraints();
+		gbc_nickName.insets = new Insets(0, 0, 5, 5);
+		gbc_nickName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_nickName.gridx = 2;
+		gbc_nickName.gridy = 2;
+		panel.add(nickName, gbc_nickName);
+		
+		checkbox = new JCheckBox();
+		checkbox.setToolTipText("If ticked, the address will be added to your address book");
+		GridBagConstraints gbc_checkbox = new GridBagConstraints();
+		gbc_checkbox.insets = new Insets(0,0,5,5);
+		gbc_checkbox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_checkbox.gridx=3;
+		gbc_checkbox.gridy=2;
+		panel.add(checkbox,gbc_checkbox);
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
@@ -137,6 +179,45 @@ public class TransferPanel extends JPanel {
 		btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(checkbox.isSelected()){
+					
+					JSONParser parser = new JSONParser();
+					try {
+						Object obj = parser.parse(new FileReader(
+			                    "kbook.json"));
+						
+						JSONObject main = new JSONObject();
+						JSONObject datasub = new JSONObject();
+			            JSONObject jsonObject = (JSONObject) obj;
+			            JSONArray data = (JSONArray) jsonObject.get("data");
+			            JSONObject newAddr = new JSONObject();
+			            newAddr.put("name", (String) nickName.getText());
+			            newAddr.put("addr",(String) recipientField.getText());
+			            datasub.put(Integer.toString(data.size()+1),newAddr);
+			            data.add(datasub);
+			            main.put("data",data);
+			            
+			            System.out.println(main);
+						FileWriter file = new FileWriter("kbook.json");
+						file.write(main.toJSONString());
+						file.flush();
+						file.close();
+			            
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		 
+		            
+		            ///////////
+					
+				}
 				new SendThread().start();
 			}
 		});
@@ -144,9 +225,11 @@ public class TransferPanel extends JPanel {
 		gbc_btnSend.gridwidth = 7;
 		gbc_btnSend.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSend.gridx = 2;
-		gbc_btnSend.gridy = 2;
+		gbc_btnSend.gridy = 3;
 		panel.add(btnSend, gbc_btnSend);
 		
+		
+
 
 	}
 	

@@ -31,8 +31,7 @@ import javax.swing.JSeparator;
 
 public class LoginFrame extends JFrame {
 
-
-	private static final long serialVersionUID = -8790221207660445916L;
+	private static final long serialVersionUID = 7407183618950451141L;
 	private JPanel contentPane;
 	private JPasswordField passwordField;
 	private SecureRandom random = new SecureRandom();

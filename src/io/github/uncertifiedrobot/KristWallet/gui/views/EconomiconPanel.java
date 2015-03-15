@@ -22,10 +22,9 @@ import java.text.ParseException;
 import javax.swing.border.EmptyBorder;
 
 public class EconomiconPanel extends JPanel {
-
+	private static final long serialVersionUID = -7646357201866366727L;
 	private JPanel richlistPanel;
 	
-	private static final long serialVersionUID = 5859711605797009759L;
 
 	public EconomiconPanel() {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
