@@ -41,10 +41,8 @@ public class TransferPanel extends JPanel {
 	private JTextField recipientField;
 	private JButton btnSend;
 	private JSpinner spinner;
-	private boolean tip;
 	
-	public TransferPanel(boolean tip) {
-		this.tip = tip;
+	public TransferPanel() {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel header = new JPanel();
@@ -55,22 +53,18 @@ public class TransferPanel extends JPanel {
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		header.add(horizontalStrut);
 		
-		if (tip) {
-			JLabel lblTransferKrist = new JLabel("Tip apemanzilla");
-			lblTransferKrist.setFont(new Font("SansSerif", Font.BOLD, 12));
-			header.add(lblTransferKrist);
-		} else {
-			JLabel lblTransferKrist = new JLabel("Transfer Krist");
-			lblTransferKrist.setFont(new Font("SansSerif", Font.BOLD, 12));
-			header.add(lblTransferKrist);
-		}
+		
+		JLabel lblTransferKrist = new JLabel("Transfer Krist");
+		lblTransferKrist.setFont(new Font("SansSerif", Font.BOLD, 12));
+		header.add(lblTransferKrist);
+		
 		
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWidths = new int[] {0, 0, 0};
 		gbl_panel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
@@ -80,67 +74,51 @@ public class TransferPanel extends JPanel {
 		gbc_horizontalStrut_3.gridx = 0;
 		gbc_horizontalStrut_3.gridy = 0;
 		panel.add(horizontalStrut_3, gbc_horizontalStrut_3);
+
+		JLabel lblNewLabel = new JLabel("Pay To: ");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 0;
+		panel.add(lblNewLabel, gbc_lblNewLabel);
 		
-		if (tip) {
-			JLabel lblSend = new JLabel("Send");GridBagConstraints gbc_lblSend = new GridBagConstraints();
-			gbc_lblSend.insets = new Insets(0, 0, 5, 5);
-			gbc_lblSend.anchor = GridBagConstraints.EAST;
-			gbc_lblSend.gridx = 1;
-			gbc_lblSend.gridy = 0;
-			panel.add(lblSend, gbc_lblSend);
-		} else {
-			JLabel lblSend = new JLabel("Send");GridBagConstraints gbc_lblSend = new GridBagConstraints();
-			gbc_lblSend.insets = new Insets(0, 0, 5, 5);
-			gbc_lblSend.anchor = GridBagConstraints.EAST;
-			gbc_lblSend.gridx = 1;
-			gbc_lblSend.gridy = 0;
-			panel.add(lblSend, gbc_lblSend);
-		}
+		
+		
+		recipientField = new JTextField();
+		recipientField.setToolTipText("Enter the receiving address");
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 2;
+		gbc_textField_1.gridy = 0;
+		panel.add(recipientField, gbc_textField_1);
+		//recipientField.setColumns(10);
+		
+				
+		
+		JLabel lblSend = new JLabel("Amount: ");GridBagConstraints gbc_lblSend = new GridBagConstraints();
+		gbc_lblSend.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSend.anchor = GridBagConstraints.EAST;
+		gbc_lblSend.gridx = 1;
+		gbc_lblSend.gridy = 1;
+		panel.add(lblSend, gbc_lblSend);
+		
 		
 		
 		spinner = new JSpinner();
-		spinner.setMinimumSize(new Dimension(100, 28));
-		spinner.setMaximumSize(new Dimension(100,28));
-		spinner.setPreferredSize(new Dimension(100, 28));
-		if (tip)
-			spinner.setModel(new SpinnerNumberModel(new Long(250), new Long(1), null, new Long(1)));
-		else
-			spinner.setModel(new SpinnerNumberModel(new Long(1), new Long(1), null, new Long(1)));
+		
+		spinner.setModel(new SpinnerNumberModel(new Long(1), new Long(1), null, new Long(1)));
 		spinner.setToolTipText("Enter the amount of Krist to send");
 		GridBagConstraints gbc_spinner = new GridBagConstraints();
 		gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner.insets = new Insets(0, 0, 5, 5);
 		gbc_spinner.gridx = 2;
-		gbc_spinner.gridy = 0;
+		gbc_spinner.gridy = 1;
 		panel.add(spinner, gbc_spinner);
 		
-		if (tip) {
-			JLabel lblNewLabel = new JLabel(" Krist to apemanzilla!");
-			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel.gridx = 3;
-			gbc_lblNewLabel.gridy = 0;
-			panel.add(lblNewLabel, gbc_lblNewLabel);
-		} else {
-			JLabel lblNewLabel = new JLabel(" Krist to ");
-			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel.gridx = 3;
-			gbc_lblNewLabel.gridy = 0;
-			panel.add(lblNewLabel, gbc_lblNewLabel);
-		}
 		
-		if (!tip) {
-			recipientField = new JTextField();
-			recipientField.setToolTipText("Enter the receiving address");
-			GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-			gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-			gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-			gbc_textField_1.gridx = 4;
-			gbc_textField_1.gridy = 0;
-			panel.add(recipientField, gbc_textField_1);
-			recipientField.setColumns(10);
-		}
+		
+		
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
@@ -155,34 +133,20 @@ public class TransferPanel extends JPanel {
 		gbc_horizontalStrut_2.gridx = 5;
 		gbc_horizontalStrut_2.gridy = 0;
 		panel.add(horizontalStrut_2, gbc_horizontalStrut_2);
+
+		btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new SendThread().start();
+			}
+		});
+		GridBagConstraints gbc_btnSend = new GridBagConstraints();
+		gbc_btnSend.gridwidth = 7;
+		gbc_btnSend.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSend.gridx = 2;
+		gbc_btnSend.gridy = 2;
+		panel.add(btnSend, gbc_btnSend);
 		
-		if (tip) {
-			btnSend = new JButton("Send");
-			btnSend.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					new SendThread().start();
-				}
-			});
-			GridBagConstraints gbc_btnSend = new GridBagConstraints();
-			gbc_btnSend.gridwidth = 7;
-			gbc_btnSend.insets = new Insets(0, 0, 5, 5);
-			gbc_btnSend.gridx = 0;
-			gbc_btnSend.gridy = 1;
-			panel.add(btnSend, gbc_btnSend);
-		} else {
-			btnSend = new JButton("Send");
-			btnSend.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					new SendThread().start();
-				}
-			});
-			GridBagConstraints gbc_btnSend = new GridBagConstraints();
-			gbc_btnSend.gridwidth = 7;
-			gbc_btnSend.insets = new Insets(0, 0, 5, 5);
-			gbc_btnSend.gridx = 0;
-			gbc_btnSend.gridy = 1;
-			panel.add(btnSend, gbc_btnSend);
-		}
 
 	}
 	
@@ -193,13 +157,10 @@ public class TransferPanel extends JPanel {
 			try {
 				String recipient;
 				KristAPI.TransferResults result;
-				if (tip) {
-					recipient = "k5ztameslf";
-					result = KWallet.api.sendKrist((long) spinner.getValue(), recipient);
-				} else {
-					recipient = recipientField.getText();
-					result = KWallet.api.sendKrist((long) spinner.getValue(), recipientField.getText());
-				}
+				
+				recipient = recipientField.getText();
+				result = KWallet.api.sendKrist((long) spinner.getValue(), recipientField.getText());
+				
 				switch(result) {
 				case Success: {
 					JOptionPane.showMessageDialog(null, "Successfully sent " + spinner.getValue() + " Krist to " + recipient + "!"

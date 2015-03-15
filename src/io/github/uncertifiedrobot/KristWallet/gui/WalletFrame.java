@@ -1,6 +1,7 @@
 package io.github.uncertifiedrobot.KristWallet.gui;
 
 import io.github.uncertifiedrobot.KristWallet.KWallet;
+import io.github.uncertifiedrobot.KristWallet.gui.views.BookPanel;
 import io.github.uncertifiedrobot.KristWallet.gui.views.EconomiconPanel;
 import io.github.uncertifiedrobot.KristWallet.gui.views.HistoryPanel;
 import io.github.uncertifiedrobot.KristWallet.gui.views.OverviewPanel;
@@ -23,6 +24,7 @@ import javax.swing.Box;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -42,12 +44,23 @@ public class WalletFrame extends JFrame {
 	private JButton btnSendKrist;
 	private JButton btnEconomicon;
 	private JButton btnLogout;
+	private JButton btnBook;
 	/**
 	 * Create the frame.
 	 */
 	public WalletFrame() {
+		
+		
+		File f = new File("kbook.json");
+		if(f.exists() && !f.isDirectory()) { 
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null,"Could not create empty address book. This feature will not work correctly.","An error has occured!",JOptionPane.ERROR_MESSAGE);
+			}
+		}
 		setMinimumSize(new Dimension(600, 325));
-		setTitle("KWallet");
+		setTitle("KristWallet");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -94,6 +107,18 @@ public class WalletFrame extends JFrame {
 		btnSendKrist.setMaximumSize(new Dimension(0, 25));
 		btnSendKrist.setPreferredSize(new Dimension(0, 25));
 		buttonPanel.add(btnSendKrist);
+		
+		btnBook = new JButton("Address Book");
+		btnBook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				self.setView(Views.BOOK);
+			}
+		});
+		btnBook.setFocusPainted(false);
+		btnBook.setMaximumSize(new Dimension(0, 25));
+		btnBook.setPreferredSize(new Dimension(0, 25));
+		buttonPanel.add(btnBook);
+		
 		
 		btnEconomicon = new JButton("Economicon");
 		btnEconomicon.addActionListener(new ActionListener() {
@@ -147,7 +172,8 @@ public class WalletFrame extends JFrame {
 		OVERVIEW,
 		HISTORY,
 		TRANSFER,
-		ECONOMICON
+		ECONOMICON,
+		BOOK
 	}
 	
 	public void setView(Views view) {
@@ -162,6 +188,7 @@ public class WalletFrame extends JFrame {
 				btnTransactions.setEnabled(true);
 				btnSendKrist.setEnabled(true);
 				btnEconomicon.setEnabled(true);
+				btnBook.setEnabled(true);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
@@ -180,6 +207,7 @@ public class WalletFrame extends JFrame {
 					btnTransactions.setEnabled(false);
 					btnSendKrist.setEnabled(true);
 					btnEconomicon.setEnabled(true);
+					btnBook.setEnabled(true);
 				} catch (MalformedURLException e) {
 					JOptionPane.showMessageDialog(null, "Could not get transactions","Error",JOptionPane.ERROR_MESSAGE);
 					e.printStackTrace();
@@ -194,13 +222,14 @@ public class WalletFrame extends JFrame {
 		 }
 		 case TRANSFER: {
 				viewContainer.removeAll();
-				currentView = new TransferPanel(false);
+				currentView = new TransferPanel();
 				viewContainer.add(currentView);
 				
 				btnOverview.setEnabled(true);
 				btnTransactions.setEnabled(true);
 				btnSendKrist.setEnabled(false);
 				btnEconomicon.setEnabled(true);
+				btnBook.setEnabled(true);
 				invalidate();
 				validate();
 				repaint();
@@ -215,11 +244,29 @@ public class WalletFrame extends JFrame {
 				btnTransactions.setEnabled(true);
 				btnSendKrist.setEnabled(true);
 				btnEconomicon.setEnabled(false);
+				btnBook.setEnabled(true);
 				invalidate();
 				validate();
 				repaint();
 				break;
 		 }
+		 case BOOK: {
+			 	viewContainer.removeAll();
+			 	currentView = new BookPanel();
+			 	viewContainer.add(currentView);
+			 	
+				btnOverview.setEnabled(true);
+				btnTransactions.setEnabled(true);
+				btnSendKrist.setEnabled(true);
+				btnEconomicon.setEnabled(true);
+				btnBook.setEnabled(false);
+				
+				invalidate();
+				validate();
+				repaint();
+				break;
+		 }
+		 
 		}
 		
 	}
