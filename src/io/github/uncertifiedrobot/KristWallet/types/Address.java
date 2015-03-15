@@ -1,4 +1,4 @@
-package io.github.apemanzilla.kwallet.types;
+package io.github.uncertifiedrobot.KristWallet.types;
 
 import java.text.DateFormat;
 import java.text.ParseException;
